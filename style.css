@@ -46,3 +46,9 @@ p {
 #score {
   color: #ffeb3b;
 }
+
+#lives {
+  color: red;
+  font-size: 1.5rem;
+  letter-spacing: 4px;
+}

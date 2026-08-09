@@ -4,6 +4,8 @@ const scoreElement = document.getElementById('score');
 
 // Game state variables
 let score = 0;
+let lives = 3;
+const livesElement = document.getElementById('lives');
 
 // Player (Bin / Defender) properties
 const player = {
@@ -13,6 +15,12 @@ const player = {
   height: 20,
   speed: 7,
   dx: 0
+};
+
+// deducting lives everytime waste falls past the player
+
+function updateLives(){
+  livesElement.textContent ='❤️'.repeat(lives).trim();
 };
 
 // Falling waste item properties
@@ -50,7 +58,9 @@ function update() {
   player.x += player.dx;
 
   // Keep player inside canvas boundaries
-  if (player.x < 0) player.x = 0;
+  if (player.x < 0) { 
+    player.x = 0;
+  }
   if (player.x + player.width > canvas.width) {
     player.x = canvas.width - player.width;
   }
@@ -67,11 +77,25 @@ function update() {
     score += 10;
     scoreElement.textContent = score;
     resetWaste();
-  }
+    
+  }else if (waste.y > canvas.height) {
+    // Check if waste fall pass the canva and controll lives
+    lives--;
 
-  // Reset waste if it misses the bin (falls off screen)
-  if (waste.y > canvas.height) {
+    updateLives();
     resetWaste();
+
+
+    if (lives <= 0) {
+      setTimeout(() => {alert ("Game Over!");
+      lives = 3;
+      score = 0;
+
+      scoreElement.textContent = score;
+      updateLives();
+      }, 100);
+    }
+  
   }
 }
 
