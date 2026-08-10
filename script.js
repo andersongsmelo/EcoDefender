@@ -5,7 +5,9 @@ const scoreElement = document.getElementById('score');
 // Game state variables
 let score = 0;
 let lives = 3;
+let gameRunning = true;
 const livesElement = document.getElementById('lives');
+
 //Game over Screen variables
 const gameOver = document.getElementById('gameOver');
 const finalScore = document.getElementById('finalScore');
@@ -90,13 +92,9 @@ function update() {
 
 
     if (lives <= 0) {
-      setTimeout(() => {alert ("Game Over!");
-      lives = 3;
-      score = 0;
-
-      scoreElement.textContent = score;
-      updateLives();
-      }, 100);
+      finalScore.textContent = score;
+      gameOver.style.display = 'block';
+      gameRunning = false;
     }
   
   }
@@ -122,12 +120,30 @@ function draw() {
   ctx.fillRect(waste.x, waste.y, waste.width, waste.height);
 }
 
-// Main game loop
+// Main game loop 
+// I added if inside to make sure 
 function gameLoop() {
-  update();
+  if (gameRunning) {
+    update();
   draw();
+  }
   requestAnimationFrame(gameLoop);
+  
 }
 
 // Start game
 gameLoop();
+
+//this is for restart button so it 
+// doesn't restart on it's own
+
+restartButton.addEventListener('click', ()=>{
+  score = 0;
+  lives = 3;
+  gameRunning = true;
+
+  scoreElement.textContent = score;
+  updateLives();
+  resetWaste();
+  gameOver.style.display = 'none';
+});
