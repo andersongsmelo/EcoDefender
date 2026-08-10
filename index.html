@@ -10,16 +10,19 @@
   <div class="game-container">
     <h1>EcoDefender</h1>
     <p>Catch the falling plastic waste to protect the environment!</p>
-    <canvas id="gameCanvas" width="600" height="400"></canvas>
-    <div class="ui">
-      <span>Score: <strong id="score">0</strong></span>
-      <span>Lives: <strong id="lives">❤️❤️❤️</strong></span>
-    </div>
-    <div class="game-over" id="gameOver">
+    <div class="canvas-container">
+      <canvas id="gameCanvas" width="600" height="400"></canvas>
+      <div class="game-over" id="gameOver">
       <h2>Game Over</h2>
       <p>Your final score: <span id="finalScore">0</span></p>
       <button id="restartButton">Restart Game</button>
     </div>
+  </div>
+    <div class="ui">
+      <span>Score: <strong id="score">0</strong></span>
+      <span>Lives: <strong id="lives">❤️❤️❤️</strong></span>
+    </div>
+  
   </div>
   <script src="script.js"></script>
 </body>
