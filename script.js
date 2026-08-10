@@ -6,7 +6,10 @@ const scoreElement = document.getElementById('score');
 let score = 0;
 let lives = 3;
 const livesElement = document.getElementById('lives');
-
+//Game over Screen variables
+const gameOver = document.getElementById('gameOver');
+const finalScore = document.getElementById('finalScore');
+const restartButton = document.getElementById('restartButton')
 // Player (Bin / Defender) properties
 const player = {
   x: canvas.width / 2 - 40,
