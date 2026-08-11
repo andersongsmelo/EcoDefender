@@ -1,7 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
-
 // Game state variables
 let score = 0;
 let lives = 3;
@@ -14,6 +13,7 @@ const startButton = document.getElementById('startButton');
 const gameOver = document.getElementById('gameOver');
 const finalScore = document.getElementById('finalScore');
 const restartButton = document.getElementById('restartButton')
+
 // Player (Bin / Defender) properties
 const player = {
   x: canvas.width / 2 - 40,
@@ -36,8 +36,29 @@ const waste = {
   y: 0,
   width: 20,
   height: 20,
-  speed: 3
+  speed: 3,
+  type: 'plastic',
+  color: 'red',
+  point: 10
 };
+
+const wasteType = [
+  {
+    type: 'paper',
+    color: 'blue',
+    point: 5
+  },
+  {
+    type: 'plastic',
+    color: 'red',
+    point: 10
+  },
+  {
+    type: 'metal',
+    color: 'yellow',
+    point: 15
+  }
+]
 
 // Handle keyboard movement
 document.addEventListener('keydown', (e) => {
@@ -81,7 +102,7 @@ function update() {
     waste.x + waste.width >= player.x &&
     waste.x <= player.x + player.width
   ) {
-    score += 10;
+    score += waste.point;
     scoreElement.textContent = score;
     resetWaste();
     
@@ -106,6 +127,14 @@ function update() {
 function resetWaste() {
   waste.y = 0;
   waste.x = Math.random() * (canvas.width - waste.width);
+
+  const randomType = wasteType[
+    Math.floor(Math.random() * wasteType.length)
+  ];
+
+  waste.type = randomType.type;
+  waste.color = randomType.color;
+  waste.point = randomType.point;
 }
 
 // Draw game objects on the canvas
@@ -118,7 +147,7 @@ function draw() {
   ctx.fillRect(player.x, player.y, player.width, player.height);
 
   // Draw Waste Item (Red Square representing plastic waste)
-  ctx.fillStyle = '#e91e63';
+  ctx.fillStyle = waste.color;
   ctx.fillRect(waste.x, waste.y, waste.width, waste.height);
 }
 
@@ -133,6 +162,8 @@ function gameLoop() {
   
 }
 
+//setting the first waste to random
+resetWaste();
 // Start game
 gameLoop();
 
