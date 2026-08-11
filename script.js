@@ -5,9 +5,11 @@ const scoreElement = document.getElementById('score');
 // Game state variables
 let score = 0;
 let lives = 3;
-let gameRunning = true;
+let gameRunning = false;
 const livesElement = document.getElementById('lives');
-
+//Game Start Screen Variables
+const startScreen = document.getElementById('startScreen');
+const startButton = document.getElementById('startButton');
 //Game over Screen variables
 const gameOver = document.getElementById('gameOver');
 const finalScore = document.getElementById('finalScore');
@@ -93,7 +95,7 @@ function update() {
 
     if (lives <= 0) {
       finalScore.textContent = score;
-      gameOver.style.display = 'block';
+      gameOver.style.display = 'flex';
       gameRunning = false;
     }
   
@@ -134,6 +136,11 @@ function gameLoop() {
 // Start game
 gameLoop();
 
+//adding a start button
+startButton.addEventListener('click', ()=>{
+    gameRunning = true;
+    startScreen.style.display = 'none';
+});
 //this is for restart button so it 
 // doesn't restart on it's own
 
@@ -147,3 +154,4 @@ restartButton.addEventListener('click', ()=>{
   resetWaste();
   gameOver.style.display = 'none';
 });
+
