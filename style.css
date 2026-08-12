@@ -9,7 +9,8 @@ body {
   background-color: #1b2a4a;
   color: #ffffff;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   min-height: 100vh;
 }
