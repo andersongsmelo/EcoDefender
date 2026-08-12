@@ -63,6 +63,7 @@ p {
   color: #ffeb3b;
   display: inline-block;
   transition: transform 0.1s ease-in-out, color 0.1s ease-in-out;
+  font-size: 1.5rem;
 }
 
 .score-pop {
@@ -72,6 +73,7 @@ p {
 
 #highScore {
   color: #ff9800;
+  font-size: 1.5rem;
 }
 
 #lives {
