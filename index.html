@@ -7,28 +7,44 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <div class="game-container">
     <h1>EcoDefender</h1>
     <p>Catch the falling plastic waste to protect the environment!</p>
+
+    <!-- Controls Box -->
+    <div class="controls-box">
+      🎮 <strong>Controls:</strong> Use <strong>⬅️ ➡️ Arrow Keys</strong> or <strong>A / D Keys</strong> to move the basket.
+    </div>
+
     <div class="canvas-container">
       <canvas id="gameCanvas" width="600" height="400"></canvas>
+
       <div class="start-screen" id="startScreen">
         <h2>Welcome to EcoDefender!</h2>
         <p>Use the arrow keys to move the basket and catch the falling plastic waste.</p>
         <button id="startButton">Start Game</button>
-      </div>      
+      </div>
+
       <div class="game-over" id="gameOver">
       <h2>Game Over</h2>
       <p>Your final score: <span id="finalScore">0</span></p>
       <button id="restartButton">Restart Game</button>
     </div>
   </div>
+
+    <!-- UI Display (Score, High Score & Lives) -->
     <div class="ui">
       <span>Score: <strong id="score">0</strong></span>
+      <span>High Score: <strong id="highScore">0</strong></span>
       <span>Lives: <strong id="lives">❤️❤️❤️</strong></span>
     </div>
-  
   </div>
+
+  <footer>
+    <p>EcoDefender &copy; 2026 — Developed by: Anderson Melo & Shahin Hosain</p>
+  </footer>
+  
   <script src="script.js"></script>
 </body>
 </html>

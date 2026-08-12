@@ -9,13 +9,15 @@ body {
   background-color: #1b2a4a;
   color: #ffffff;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   min-height: 100vh;
 }
 
 .game-container {
   text-align: center;
+  padding-top: 20px;
 }
 
 h1 {
@@ -29,6 +31,17 @@ p {
   color: #b0bec5;
 }
 
+.controls-box {
+  background-color: #0d1b2a;
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 0 auto 15px auto;
+  max-width: 600px;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
 #gameCanvas {
   background-color: #0d1b2a;
   border: 3px solid #4caf50;
@@ -39,12 +52,28 @@ p {
 }
 
 .ui {
-  margin-top: 12px;
+  margin-top: 15px;
   font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
 }
 
 #score {
   color: #ffeb3b;
+  display: inline-block;
+  transition: transform 0.1s ease-in-out, color 0.1s ease-in-out;
+  font-size: 1.5rem;
+}
+
+.score-pop {
+  transform: scale(1.5);
+  color: #00e676 !important;
+}
+
+#highScore {
+  color: #ff9800;
+  font-size: 1.5rem;
 }
 
 #lives {
@@ -53,8 +82,8 @@ p {
   letter-spacing: 4px;
 }
 
-.game-over {
-  display: none;
+.game-over, #startScreen {
+  display: flex;
   position: absolute;
   top: 0;
   left: 0;
@@ -65,6 +94,11 @@ p {
   align-items: center;
   flex-direction: column;
   border-radius: 8px;
+  z-index: 10;
+}
+
+.game-over {
+  display: none;
   z-index: 20;
 }
 
@@ -74,13 +108,13 @@ p {
   margin-bottom: 10px;
 }
 
-.game-over p {
+.game-over p, #startScreen p {
   color: white;
   font-size: 1.2rem;
   margin-bottom: 15px;
 }
 
-#restartButton {
+#startButton, #restartButton {
   background-color: #4caf50;
   color: white;
   border: none;
@@ -90,8 +124,8 @@ p {
   border-radius: 5px;
 }
 
-#restartButton:hover {
-  background-color: #52bb57;
+#startButton:hover, #restartButton:hover {
+  background-color: #62e068;
 }
 
 .canvas-container {
@@ -101,43 +135,13 @@ p {
   margin: 0 auto;
 }
 
-#startScreen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 600px;
-  height: 400px;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border-radius: 8px;
-  z-index: 10;
-}
-
-#startScreen h2 {
-  color: #55bd59;
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-#startScreen p {
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-#startButton {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-#startButton:hover {
-  background-color: #62e068;
+footer {
+  width: 100%;
+  padding: 15px;
+  background-color: #0d1b2a;
+  color: #b0bec5;
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid #2e3d52;
+  margin-top: 20px;
 }

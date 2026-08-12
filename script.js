@@ -1,12 +1,17 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
+const highScoreElement = document.getElementById('highScore');
 const livesElement = document.getElementById('lives');
 
 // Game state variables
 let score = 0;
 let lives = 3;
 let gameRunning = false;
+
+// High Score setup
+let highScore = localStorage.getItem('ecoDefender_highScore') || 0;
+highScoreElement.textContent = highScore;
 
 //Game Start Screen Variables
 const startScreen = document.getElementById('startScreen');
@@ -36,7 +41,7 @@ const wasteType = [
 
 // Falling waste item properties
 const waste = {
-  x: Math.random() * (canvas.width - 20),
+  x: 0,
   y: 0,
   width: 20,
   height: 20,
@@ -46,8 +51,39 @@ const waste = {
   point: 10
 };
 
-// Update lives HUD
+// Audio Synthesizer Effect (Catch Sound)
+function playCatchSound() {
+  try {
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
 
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // Note D5
+    osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.1); // Note A5
+
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.1);
+  } catch (e) {
+    // Graceful fallback if browser restricts audio prior to user interaction
+  }
+}
+
+// Trigger Visual Animation on Score
+function triggerScorePop() {
+  scoreElement.classList.add('score-pop');
+  setTimeout(() => {
+    scoreElement.classList.remove('score-pop');
+  }, 150);
+}
+
+// Update lives HUD
 function updateLives(){
   livesElement.textContent ='❤️'.repeat(lives).trim();
 };
@@ -95,8 +131,19 @@ function update() {
   ) {
     score += waste.point;
     scoreElement.textContent = score;
+
+    // Trigger visual pop & audio effect
+    triggerScorePop();
+    playCatchSound();
+
+    // Check & update High Score
+    if (score > highScore) {
+      highScore = score;
+      highScoreElement.textContent = highScore;
+      localStorage.setItem('ecoDefender_highScore', highScore);
+    }
+
     resetWaste();
-    
   } else if (waste.y > canvas.height) {
     // Waste fell past the basket
     lives--;
@@ -129,7 +176,7 @@ function resetWaste() {
   waste.speed = randomType.speed + speedBonus;
 }
 
-// Reset entire game state
+// Reset full game state
 function resetGame() {
   score = 0;
   lives = 3;
@@ -164,7 +211,7 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-//Initialize setup
+//Initial setup
 resetWaste();
 gameLoop();
 
