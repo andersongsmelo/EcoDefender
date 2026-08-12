@@ -31,6 +31,17 @@ p {
   color: #b0bec5;
 }
 
+.controls-box {
+  background-color: #0d1b2a;
+  border: 1px solid #4caf50;
+  border-radius: 8px;
+  padding: 8px 16px;
+  margin: 0 auto 15px auto;
+  max-width: 600px;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+}
+
 #gameCanvas {
   background-color: #0d1b2a;
   border: 3px solid #4caf50;
