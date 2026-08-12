@@ -1,14 +1,17 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const scoreElement = document.getElementById('score');
+const livesElement = document.getElementById('lives');
+
 // Game state variables
 let score = 0;
 let lives = 3;
 let gameRunning = false;
-const livesElement = document.getElementById('lives');
+
 //Game Start Screen Variables
 const startScreen = document.getElementById('startScreen');
 const startButton = document.getElementById('startButton');
+
 //Game over Screen variables
 const gameOver = document.getElementById('gameOver');
 const finalScore = document.getElementById('finalScore');
@@ -24,11 +27,12 @@ const player = {
   dx: 0
 };
 
-// deducting lives everytime waste falls past the player
-
-function updateLives(){
-  livesElement.textContent ='❤️'.repeat(lives).trim();
-};
+// Types of waste items
+const wasteType = [
+  { type: 'paper', color: 'blue', point: 5, speed: 3 },
+  { type: 'plastic', color: 'red', point: 10, speed: 4 },
+  { type: 'metal', color: 'yellow', point: 15, speed: 5 }
+];
 
 // Falling waste item properties
 const waste = {
@@ -42,39 +46,25 @@ const waste = {
   point: 10
 };
 
-const wasteType = [
-  {
-    type: 'paper',
-    color: 'blue',
-    point: 5
-  },
-  {
-    type: 'plastic',
-    color: 'red',
-    point: 10
-  },
-  {
-    type: 'metal',
-    color: 'yellow',
-    point: 15
-  }
-]
+// Update lives HUD
+
+function updateLives(){
+  livesElement.textContent ='❤️'.repeat(lives).trim();
+};
 
 // Handle keyboard movement
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight' || e.key === 'd') {
+  if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
     player.dx = player.speed;
-  } else if (e.key === 'ArrowLeft' || e.key === 'a') {
+  } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
     player.dx = -player.speed;
   }
 });
 
 document.addEventListener('keyup', (e) => {
   if (
-    e.key === 'ArrowRight' ||
-    e.key === 'd' ||
-    e.key === 'ArrowLeft' ||
-    e.key === 'a'
+    e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D' ||  
+    e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A'
   ) {
     player.dx = 0;
   }
@@ -99,6 +89,7 @@ function update() {
   // Collision detection: Player catching the waste
   if (
     waste.y + waste.height >= player.y &&
+    waste.y <= player.y + player.height &&
     waste.x + waste.width >= player.x &&
     waste.x <= player.x + player.width
   ) {
@@ -106,20 +97,17 @@ function update() {
     scoreElement.textContent = score;
     resetWaste();
     
-  }else if (waste.y > canvas.height) {
-    // Check if waste fall pass the canva and controll lives
+  } else if (waste.y > canvas.height) {
+    // Waste fell past the basket
     lives--;
-
     updateLives();
     resetWaste();
-
 
     if (lives <= 0) {
       finalScore.textContent = score;
       gameOver.style.display = 'flex';
       gameRunning = false;
     }
-  
   }
 }
 
@@ -135,6 +123,21 @@ function resetWaste() {
   waste.type = randomType.type;
   waste.color = randomType.color;
   waste.point = randomType.point;
+
+  // Slight speed scaling as score increases
+  const speedBonus = Math.floor(score / 50) * 0.5;
+  waste.speed = randomType.speed + speedBonus;
+}
+
+// Reset entire game state
+function resetGame() {
+  score = 0;
+  lives = 3;
+  player.x = canvas.width / 2 - player.width / 2;
+  player.dx = 0;
+  scoreElement.textContent = score;
+  updateLives();
+  resetWaste();
 }
 
 // Draw game objects on the canvas
@@ -156,33 +159,26 @@ function draw() {
 function gameLoop() {
   if (gameRunning) {
     update();
-  draw();
+    draw();
   }
   requestAnimationFrame(gameLoop);
-  
 }
 
-//setting the first waste to random
+//Initialize setup
 resetWaste();
-// Start game
 gameLoop();
 
 //adding a start button
 startButton.addEventListener('click', ()=>{
+    resetGame();
     gameRunning = true;
     startScreen.style.display = 'none';
 });
+
 //this is for restart button so it 
-// doesn't restart on it's own
-
 restartButton.addEventListener('click', ()=>{
-  score = 0;
-  lives = 3;
+  resetGame();
   gameRunning = true;
-
-  scoreElement.textContent = score;
-  updateLives();
-  resetWaste();
   gameOver.style.display = 'none';
 });
 
