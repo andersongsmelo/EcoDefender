@@ -5,6 +5,7 @@ An interactive HTML5 Canvas game designed to raise environmental awareness by so
 ---
 
 ## 🎥 Feature Demonstration
+*(Coming soon: The project presentation video will be embedded here once recorded.)*
 
 ![EcoDefender Gameplay Demo](assets/demo.gif)
 
@@ -34,6 +35,20 @@ An interactive HTML5 Canvas game designed to raise environmental awareness by so
 
 ---
 
+## 🚀 Getting Started & Installation
+
+Since this project utilizes native web technologies, there are no complex external package dependencies to install.
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/andersongsmelo/EcoDefender.git](https://github.com/andersongsmelo/EcoDefender.git)
+2. **Open in your Editor:**
+    Open the cloned folder in VS Code or any editor of your choice.
+3. **Run the Project:**
+    Use the Live Server extension in VS Code, or simply open the `index.html` file directly in any modern web browser.
+
+---
+
 ## 🛠️ Tech Stack
 
 * **HTML5 Canvas:** Game loop, rendering, and collision detection physics.
@@ -42,5 +57,17 @@ An interactive HTML5 Canvas game designed to raise environmental awareness by so
 
 ---
 
-## 👥 Team
-* EcoDefender Project Team — Developed for Course Project.
+## 👥 Team & Contributions
+* **Anderson Melo**
+  * **Role:** Developer
+  * **Contributions:** Created the base HTML, CSS, and JavaScript structure, integrated Canvas support, implemented player movement mechanics, improved page layout & footer, added audio & visual effects, and developed the color Legend box.
+* **Shahin Hosain**
+  * **Role:** Developer
+  * **Contributions:** Implemented the Start Screen, different waste types logic with unique colors and values, the 3-lives system, the Game Over screen with a working Restart button, and the progressive difficulty speed scaling.
+
+---
+
+## 🔗 Project Resources & Management
+
+* **Issue Board:** [https://github.com/users/andersongsmelo/projects/1/views/1](https://github.com/andersongsmelo/EcoDefender)
+* **Workflow:** Developed utilizing dedicated feature branches and Pull Requests for version control, tracked completely via the project Kanban board.
