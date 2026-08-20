@@ -5,7 +5,7 @@ An interactive HTML5 Canvas game designed to raise environmental awareness by so
 ---
 
 ## 🎥 Feature Demonstration
-*(Coming soon: The project presentation video will be embedded here once recorded.)*
+[![Watch the video](https://img.youtube.com/vi/ic9EgwF0jxk/0.jpg)](https://www.youtube.com/watch?v=ic9EgwF0jxk)
 
 ![EcoDefender Gameplay Demo](assets/demo.gif)
 
